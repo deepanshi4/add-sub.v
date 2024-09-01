@@ -1,0 +1,27 @@
+WRITE A VHDL CODE FOR ADDER AND SUBTRACTOR
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity adder_subtractor is
+    port (
+        a, b : in std_logic_vector(3 downto 0); -- Inputs
+        op : in std_logic;                      -- Operation (0: add, 1: subtract)
+        result : out std_logic_vector(3 downto 0); -- Output
+        carry : out std_logic                    -- Carry/Borrow
+    );
+end entity adder_subtractor;
+
+architecture behavioral of adder_subtractor is
+begin
+    process (a, b, op)
+    begin
+        if op = '0' then -- Addition
+            result <= a + b;
+            carry <= a(3) or b(3); -- Simple carry handling
+        else -- Subtraction
+            result <= a - b;
+            carry <= not (a(3) or b(3)); -- Simple borrow handling
+        end if;
+    end process;
+end architecture behavioral;
